@@ -100,7 +100,7 @@ plt.figure()
 plt.xlabel("Degree")
 plt.ylabel("Probability")
 plt.title("Degree distribution of the graph")
-plt.loglog(csf[0], np.array(csf[1])*(1/5242), 'bo')
+plt.loglog(csf[0][0:len(csf)-1], np.array(csf[1][0:len(csf)-1])*(1/5242), 'bo')
 
 #%% Parameters of the power-law distribution
 
@@ -137,7 +137,7 @@ plt.title("Degree distribution of the graph")
 plt.plot(csf[0], np.array(csf[1])*(1/5242), 'bo')
 X = list(range(2, 81))
 plt.plot(X, f(X), 'k')
-plt.show()
+
 #%% Triangles in the GCC
 
 GCC = gmax
@@ -182,6 +182,58 @@ plt.plot(liste1, liste2)
 
 
 #%% Question 8
+
+#%% Generate the Erdős–Rényi random graph
+
+n = 1000
+p = 0.009
+seed = 181
+G = nx.fast_gnp_random_graph(n, p, seed)
+
+#%% Nodes/Edges
+
+nb_nodes = nx.number_of_nodes(G)
+print(nb_nodes)
+nb_edges = nx.number_of_edges(G)
+print(nb_edges)
+
+#%% Degree
+
+d = G.degree()
+d = dict(d)
+val = list(d.values())
+mean = np.mean(np.array(val))
+
+#%% Connectivity
+
+nx.is_connected(G)
+
+#%% Degree distribution
+
+cs = [(x,val.count(x)) for x in set(val)]  
+cs = sorted(cs, key=lambda x: x[0])
+csf = list(zip(*cs))
+    
+plt.figure()
+plt.xlabel("Degree")
+plt.ylabel("Probability")
+plt.title("Degree distribution of the random graph")
+plt.plot(csf[0], np.array(csf[1])*(1/1000), 'bo')
+
+def poisson(k):
+    return np.exp(-mean)*(np.power(mean, k)/np.math.factorial(k))
+
+x= np.arange(0, 20, 1)
+plt.plot(x, [poisson(k) for k in x], 'k')
+
+
+#%% Question 9
+
+#%% Generate the Erdős–Rényi random graph
+
+
+
+
 
 
 
