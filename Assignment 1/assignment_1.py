@@ -485,7 +485,7 @@ print(nb_edgesgcc)
 
 GCC = gmax
 
-#%%
+#%% Computing the impact of nodes deletion
 
 rates = np.arange(0, 0.21, 0.01)
 d = G.degree()
