@@ -487,11 +487,11 @@ GCC = gmax
 
 #%% Computing the impact of nodes deletion
 
-rates = np.arange(0, 0.21, 0.01)
-d = G.degree()
+rates = np.arange(0, 1.01, 0.01)
+d = GCC.degree()
 d= dict(d)
-nb_nodes = nx.number_of_nodes(G)
-nodes_list = list(G.nodes)
+nb_nodes = nx.number_of_nodes(GCC)
+nodes_list = list(GCC.nodes)
 
 #First strategy : random deletion
 
@@ -499,7 +499,7 @@ fin_small = []
 fin_gcc = []
 for r in rates:
     nb_to_remove = int(r*nb_nodes)
-    Gr = G.copy()
+    Gr = GCC.copy()
     nodes_copy = nodes_list.copy()
     
     #Remove a random node
@@ -517,8 +517,8 @@ for r in rates:
             mmax = nx.number_of_nodes(h)        
     liste = []
     for g in liste_cc:
-        if nx.number_of_edges(g) != mmax:
-            liste.append(nx.number_of_edges(g))       
+        if nx.number_of_nodes(g) != mmax:
+            liste.append(nx.number_of_nodes(g))       
     tot = sum(liste)
     fin_small.append((r, tot))
     fin_gcc.append((r, mmax))
@@ -530,7 +530,7 @@ tar_small = []
 tar_gcc = []
 for r in rates:
     nb_to_remove = int(r*nb_nodes)
-    Gr = G.copy()
+    Gr = GCC.copy()
     nodes_copy = nodes_list.copy()
     d = Gr.degree()
     d = dict(d)
@@ -553,8 +553,8 @@ for r in rates:
             mmax = nx.number_of_nodes(h)        
     liste = []
     for g in liste_cc:
-        if nx.number_of_edges(g) != mmax:
-            liste.append(nx.number_of_edges(g))       
+        if nx.number_of_nodes(g) != mmax:
+            liste.append(nx.number_of_nodes(g))       
     tot = sum(liste)
     tar_small.append((r, tot))
     tar_gcc.append((r, mmax))
